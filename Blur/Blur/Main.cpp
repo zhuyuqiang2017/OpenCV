@@ -13,7 +13,7 @@ void onSizeChange(int position) {
 	cout << "position" << position << endl;
 	initial_size = position;
 	try {
-		blur(source, result, Size(initial_size, initial_size));
+		blur(source, result, Size(initial_size, initial_size),Point(-1,-1));
 		imshow(source_window, result);
 	}
 	catch (Exception e) {
@@ -22,11 +22,12 @@ void onSizeChange(int position) {
 }
 int main()
 {
-	source = imread("fifth.jpg", IMREAD_UNCHANGED);
+	source = imread("test_clear.jpg", IMREAD_UNCHANGED);
 	result.create(source.rows,source.cols,source.channels());
 	cvNamedWindow(source_window, CV_WINDOW_AUTOSIZE);
 	cvCreateTrackbar("changeSize", source_window, &initial_size, 100, onSizeChange);
-	cvSetTrackbarPos("changeSize", source_window, 0);
+	cvSetTrackbarPos("changeSize", source_window, 80);
+	imwrite("test_blur.jpg",result);
 	waitKey(0);
 	return 0;
 }
